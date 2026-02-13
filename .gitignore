@@ -17,7 +17,6 @@ db.sqlite3-journal
 media/
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
