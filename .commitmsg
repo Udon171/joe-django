@@ -1,0 +1,9 @@
+feat(auth): complete allauth configuration with account settings
+
+- Add EMAIL_BACKEND (console) for dev email verification
+- Add ACCOUNT_AUTHENTICATION_METHOD (username_email)
+- Add ACCOUNT_EMAIL_REQUIRED, ACCOUNT_EMAIL_VERIFICATION (mandatory)
+- Add ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE, ACCOUNT_USERNAME_MIN_LENGTH
+- Add LOGIN_URL and LOGIN_REDIRECT_URL for auth flow
+- Verified login/signup pages render correctly via dev server
+- Add Development Diary Entry 7 documenting allauth setup completion
