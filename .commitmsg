@@ -1,10 +1,8 @@
-feat(templates): add allauth templates and Bootstrap base layout
+refactor(templates): restructure base.html with Django template blocks
 
-- Copy all allauth account templates to templates/allauth/account/
-  (login, signup, logout, password reset, email management, etc.)
-- Copy all allauth socialaccount templates to templates/allauth/socialaccount/
-  (connections, login, signup, error handling, snippets)
-- Add templates/base.html with auth-aware navigation menu
-- Add templates/allauth/base.html with Bootstrap 4.6 CDN
-- Update TEMPLATES DIRS in settings.py to discover custom templates
-- Add Development Diary Entry 8
+- Replace flat HTML with named template blocks (meta, corecss,
+  corejs, extra_css, extra_js, extra_meta, extra_title)
+- Add fixed-top header container for future navbar
+- Add messages container for Django messages framework
+- Title now supports page-specific suffixes via extra_title block
+- Add Development Diary Entry 9
