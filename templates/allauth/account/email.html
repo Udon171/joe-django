@@ -4,7 +4,7 @@
 
 {% block head_title %}{% trans "E-mail Addresses" %}{% endblock %}
 
-{% block content %}
+{% block inner_content %}
     <h1>{% trans "E-mail Addresses" %}</h1>
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -57,7 +57,7 @@
 {% endblock %}
 
 
-{% block extra_body %}
+{% block postloadjs %}
 <script type="text/javascript">
 (function() {
   var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
