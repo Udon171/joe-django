@@ -785,6 +785,56 @@ Note: `gunicorn` listed in requirements.txt for deployment but not installed loc
 
 ---
 
+### Entry 13 — 25 February 2026
+
+**Phase:** Content & Data Population
+**Commit:** `feat(gallery): add import_prints management command and populate gallery with 25 Molishi Mysticals prints`
+
+#### Context
+
+With the gallery app fully built (Entry 12), the next step was populating it with real artwork. The artist's image collection (91 files) was stored on an external hard drive at `F:\David Folders\Pictures\Molishi Collection`. Rather than manually adding each print through Django admin, a custom management command was the efficient approach for a bulk import.
+
+#### What Was Built
+
+Created `gallery/management/commands/import_prints.py` — a Django management command that:
+
+1. Scans a specified source folder for image files (`.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.bmp`)
+2. Cleans filenames into human-readable titles (strips `Molishi_Mysticals_` prefix, replaces underscores with spaces, removes trailing variant numbers, applies title case)
+3. Creates a Category record if one doesn't exist
+4. Copies each image into `media/prints/`
+5. Creates an ArtPrint database record with title, auto-generated slug, description, price, and category
+6. Skips duplicate slugs to avoid re-importing the same artwork twice
+7. Supports `--dry-run` to preview what would be imported without making changes
+8. Accepts `--category` and `--price` arguments for customisation
+
+#### Import Results
+
+```
+Source: F:\David Folders\Pictures\Molishi Collection (root files only)
+Total images found: 91
+Unique prints imported: 25
+Variant duplicates skipped: 66 (images with same base name, different variant number)
+Category created: Molishi Mysticals
+Default price: £50.00
+```
+
+The 66 skipped files were variant versions of the same artwork (e.g., `_0.jpg`, `_1.jpg`, `_2.jpg`) — the command correctly imported only the first variant for each unique title.
+
+#### Verification
+
+- Gallery page renders all 25 prints as Bootstrap cards with images
+- Image URLs correctly point to `/media/prints/` served by Django's dev server
+- Category filter pill "Molishi Mysticals" appears and filters correctly
+- Art detail pages accessible via slug URLs
+
+#### Files Changed
+
+- `gallery/management/__init__.py` — package initialiser
+- `gallery/management/commands/__init__.py` — package initialiser
+- `gallery/management/commands/import_prints.py` — bulk import management command
+
+---
+
 *Further entries will be added as development continues.*
 
 ---
