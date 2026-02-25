@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block extra_title %} | {% if editing %}Edit{% else %}New{% endif %} Commission{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-2">
+    {% if editing %}
+      <i class="fas fa-edit me-2"></i>Edit Commission
+    {% else %}
+      <i class="fas fa-paint-brush me-2"></i>Request a Custom Piece
+    {% endif %}
+  </h1>
+  <p class="lead mb-4" style="color: #e0e0e0;">
+    Describe your vision and get an instant price estimate.
+  </p>
+
+  <div class="row">
+    <!-- Form -->
+    <div class="col-lg-7">
+      <div class="card p-4">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary btn-lg mt-3 w-100">
+            <i class="fas fa-paper-plane me-2"></i>
+            {% if editing %}Update{% else %}Submit{% endif %} Request
+            (<span id="submit-price">&euro;---</span>)
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Live Quote Calculator -->
+    <div class="col-lg-5 mt-4 mt-lg-0">
+      <div class="card quote-preview p-4 text-center sticky-top" style="top: 100px;">
+        <h5 class="mb-3"><i class="fas fa-calculator me-2"></i>Live Price Estimate</h5>
+        <p id="quote-display" class="display-4 fw-bold" style="color: #00f5d4;">&euro;---</p>
+        <small class="text-muted d-block mt-2">
+          <i class="fas fa-info-circle me-1"></i>Preview only &mdash; final price confirmed by artist after review
+        </small>
+
+        <hr class="border-secondary my-3">
+
+        <div class="text-start">
+          <p class="mb-1"><strong>How pricing works:</strong></p>
+          <ul class="small text-muted">
+            <li>Base: &euro;80 (icons, logos, posters) / &euro;120 (portraits)</li>
+            <li>Large sizes (A3+): 2&times; multiplier</li>
+            <li>Complex descriptions (300+ chars): 1.5&times;</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+<script>
+  /**
+   * Client-side quote calculator.
+   * Mirrors the server-side _calculate_price() logic for instant preview.
+   * Final price is always calculated server-side (never trust client).
+   */
+  function updateQuote() {
+    const typeEl = document.getElementById('id_commission_type');
+    const sizeEl = document.getElementById('id_size');
+    const descEl = document.getElementById('id_description');
+
+    if (!typeEl || !sizeEl || !descEl) return;
+
+    const type = typeEl.value;
+    const size = sizeEl.value.toLowerCase();
+    const descLength = descEl.value.length;
+
+    // Base price by type
+    let base = (type === 'portrait') ? 120 : 80;
+
+    // Size multiplier
+    let sizeMult = (size.includes('large') || size.includes('a3')) ? 2 : 1;
+
+    // Complexity from description length
+    let complexity = (descLength > 300) ? 1.5 : 1;
+
+    let price = Math.round(base * sizeMult * complexity);
+
+    // Update displays
+    document.getElementById('quote-display').textContent = '\u20AC' + price;
+    document.getElementById('submit-price').textContent = '\u20AC' + price;
+  }
+
+  // Bind events for real-time updates
+  document.querySelectorAll('#id_commission_type, #id_size, #id_description').forEach(function(el) {
+    el.addEventListener('input', updateQuote);
+    el.addEventListener('change', updateQuote);
+  });
+
+  // Initial calculation
+  updateQuote();
+</script>
+{% endblock %}

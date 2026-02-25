@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | {{ art.title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'gallery' %}" class="text-decoration-none" style="color: #00f5d4;">Gallery</a></li>
+      {% if art.category %}
+        <li class="breadcrumb-item">
+          <a href="{% url 'gallery' %}?category={{ art.category.slug }}" class="text-decoration-none" style="color: #00f5d4;">{{ art.category.name }}</a>
+        </li>
+      {% endif %}
+      <li class="breadcrumb-item active" aria-current="page">{{ art.title }}</li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <!-- Image -->
+    <div class="col-lg-7 mb-4">
+      {% if art.image %}
+        <a href="{{ art.image.url }}" data-lightbox="art" data-title="{{ art.title }}">
+          <img src="{{ art.image.url }}" class="img-fluid art-detail-image w-100" alt="{{ art.title }}">
+        </a>
+        <small class="text-muted mt-2 d-block">
+          <i class="fas fa-search-plus me-1"></i>Click image to zoom
+        </small>
+      {% else %}
+        <div class="bg-secondary d-flex align-items-center justify-content-center rounded"
+             style="height: 400px;">
+          <i class="fas fa-image fa-5x text-muted"></i>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Details -->
+    <div class="col-lg-5">
+      <h1 class="mb-2">{{ art.title }}</h1>
+
+      {% if art.category %}
+        <span class="badge bg-secondary mb-3">{{ art.category.name }}</span>
+      {% endif %}
+
+      <h3 class="mb-3" style="color: #00f5d4;">&euro;{{ art.price }}</h3>
+
+      <p>{{ art.description }}</p>
+
+      {% if art.size_options %}
+        <p><strong>Available sizes:</strong> {{ art.size_options }}</p>
+      {% endif %}
+
+      {% if art.limited_edition %}
+        <p class="text-warning">
+          <i class="fas fa-star me-1"></i>Limited edition &mdash; {{ art.limited_edition }} remaining
+        </p>
+      {% endif %}
+
+      <!-- Add to Cart -->
+      {% if art.is_available %}
+        <form method="post" action="{% url 'add_to_cart' art.id %}" class="mb-3">
+          {% csrf_token %}
+          <input type="hidden" name="quantity" value="1">
+          <input type="hidden" name="redirect_url" value="{{ request.path }}">
+          <button type="submit" class="btn btn-primary btn-lg w-100">
+            <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+          </button>
+        </form>
+      {% else %}
+        <button class="btn btn-secondary btn-lg w-100" disabled>Sold Out</button>
+      {% endif %}
+
+      <!-- Wishlist -->
+      {% if user.is_authenticated %}
+        {% if in_wishlist %}
+          <a href="{% url 'remove_from_wishlist' art.slug %}" class="btn btn-outline-danger w-100 mb-3">
+            <i class="fas fa-heart me-1"></i>Remove from Wishlist
+          </a>
+        {% else %}
+          <a href="{% url 'add_to_wishlist' art.slug %}" class="btn btn-outline-primary w-100 mb-3">
+            <i class="far fa-heart me-1"></i>Add to Wishlist
+          </a>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'account_login' %}?next={{ request.path }}"
+           class="btn btn-outline-secondary w-100 mb-3">
+          <i class="fas fa-sign-in-alt me-1"></i>Login to save to Wishlist
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Related Prints -->
+  {% if related %}
+  <hr class="border-secondary my-5">
+  <h4 class="mb-4">You may also like</h4>
+  <div class="row row-cols-2 row-cols-md-4 g-3">
+    {% for rel in related %}
+    <div class="col">
+      <a href="{% url 'art_detail' rel.slug %}" class="text-decoration-none">
+        <div class="card gallery-card">
+          {% if rel.image %}
+            <img src="{{ rel.image.url }}" class="card-img-top" alt="{{ rel.title }}">
+          {% endif %}
+          <div class="card-body py-2">
+            <small class="card-title d-block">{{ rel.title }}</small>
+            <small style="color: #00f5d4;">&euro;{{ rel.price }}</small>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script>
+  lightbox.option({
+    'resizeDuration': 200,
+    'wrapAround': true,
+    'fadeDuration': 300,
+  });
+</script>
+{% endblock %}

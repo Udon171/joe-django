@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-4">
+    <i class="fas fa-user-circle me-2"></i>Welcome back, {{ user.username }}
+  </h1>
+
+  <!-- Bootstrap Tabs -->
+  <ul class="nav nav-tabs mb-4" id="dashboardTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="commissions-tab" data-bs-toggle="tab"
+              data-bs-target="#commissions" type="button" role="tab"
+              aria-controls="commissions" aria-selected="true">
+        <i class="fas fa-paint-brush me-1"></i>My Commissions
+        {% if commissions %}
+          <span class="badge bg-secondary">{{ commissions.count }}</span>
+        {% endif %}
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="orders-tab" data-bs-toggle="tab"
+              data-bs-target="#orders" type="button" role="tab"
+              aria-controls="orders" aria-selected="false">
+        <i class="fas fa-shopping-bag me-1"></i>My Orders
+        {% if orders %}
+          <span class="badge bg-secondary">{{ orders.count }}</span>
+        {% endif %}
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="wishlist-tab" data-bs-toggle="tab"
+              data-bs-target="#wishlist" type="button" role="tab"
+              aria-controls="wishlist" aria-selected="false">
+        <i class="fas fa-heart me-1"></i>Wishlist
+        {% if wishlist %}
+          <span class="badge bg-secondary">{{ wishlist.count }}</span>
+        {% endif %}
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="dashboardTabContent">
+
+    <!-- Commissions Tab -->
+    <div class="tab-pane fade show active" id="commissions" role="tabpanel"
+         aria-labelledby="commissions-tab">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>My Commission Requests</h4>
+        <a href="{% url 'commission_create' %}" class="btn btn-primary">
+          <i class="fas fa-plus me-1"></i>New Commission
+        </a>
+      </div>
+
+      {% if commissions %}
+        <div class="row g-3">
+          {% for c in commissions %}
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h5 class="card-title mb-0">{{ c.title }}</h5>
+                  <span class="badge bg-{{ c.get_status_badge_class }}">
+                    {{ c.get_status_display }}
+                  </span>
+                </div>
+                <p class="text-muted small mb-1">
+                  <i class="fas fa-tag me-1"></i>{{ c.get_commission_type_display }}
+                </p>
+                <p class="text-muted small mb-2">
+                  <i class="fas fa-calendar me-1"></i>{{ c.created_at|date:"d M Y" }}
+                </p>
+
+                {% if c.estimated_price %}
+                  <p class="mb-2" style="color: #00f5d4;">
+                    <strong>Estimated:</strong> &euro;{{ c.estimated_price }}
+                  </p>
+                {% endif %}
+
+                {% if c.final_file %}
+                  <a href="{{ c.final_file.url }}" class="btn btn-success btn-sm w-100 mb-2">
+                    <i class="fas fa-download me-1"></i>Download Final File
+                  </a>
+                {% endif %}
+
+                {% if c.is_editable_by_user %}
+                  <div class="d-flex gap-2">
+                    <a href="{% url 'commission_edit' c.pk %}" class="btn btn-outline-primary btn-sm flex-fill">
+                      <i class="fas fa-edit me-1"></i>Edit
+                    </a>
+                    <a href="{% url 'commission_delete' c.pk %}" class="btn btn-outline-danger btn-sm">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-5">
+          <i class="fas fa-paint-brush fa-3x mb-3" style="color: #c71585; opacity: 0.5;"></i>
+          <p class="lead">No commissions yet.</p>
+          <a href="{% url 'commission_create' %}" class="btn btn-primary">
+            Request Your First Commission
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Orders Tab -->
+    <div class="tab-pane fade" id="orders" role="tabpanel"
+         aria-labelledby="orders-tab">
+      <h4 class="mb-3">Order History</h4>
+
+      {% if orders %}
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Downloads</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for o in orders %}
+              <tr>
+                <td>#{{ o.id }}</td>
+                <td>{{ o.created_at|date:"d M Y" }}</td>
+                <td>
+                  {% for item in o.items.all %}
+                    <span class="d-block small">
+                      {{ item.quantity }}&times; {{ item.art_print.title|default:"Unknown" }}
+                    </span>
+                  {% endfor %}
+                </td>
+                <td>&euro;{{ o.total_amount }}</td>
+                <td><span class="badge bg-success">{{ o.status|title }}</span></td>
+                <td>
+                  {% for item in o.items.all %}
+                    {% if item.art_print %}
+                      <a href="{% url 'download_print' item.art_print.id %}"
+                         class="btn btn-sm btn-outline-primary mb-1">
+                        <i class="fas fa-download me-1"></i>{{ item.art_print.title|truncatewords:3 }}
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="text-center py-5">
+          <i class="fas fa-shopping-bag fa-3x mb-3" style="color: #d4a017; opacity: 0.5;"></i>
+          <p class="lead">No orders yet.</p>
+          <a href="{% url 'gallery' %}" class="btn btn-primary">Browse Prints</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Wishlist Tab -->
+    <div class="tab-pane fade" id="wishlist" role="tabpanel"
+         aria-labelledby="wishlist-tab">
+      <h4 class="mb-3">My Wishlist</h4>
+
+      {% if wishlist %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for art in wishlist %}
+          <div class="col">
+            <div class="card gallery-card h-100">
+              {% if art.image %}
+                <a href="{% url 'art_detail' art.slug %}">
+                  <img src="{{ art.image.url }}" class="card-img-top" alt="{{ art.title }}">
+                </a>
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">{{ art.title }}</h5>
+                <p style="color: #00f5d4;">&euro;{{ art.price }}</p>
+                <div class="d-flex gap-2">
+                  <form method="post" action="{% url 'add_to_cart' art.id %}" class="flex-fill">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="redirect_url" value="{% url 'dashboard' %}">
+                    <button type="submit" class="btn btn-primary btn-sm w-100">
+                      <i class="fas fa-cart-plus me-1"></i>Add to Cart
+                    </button>
+                  </form>
+                  <a href="{% url 'remove_from_wishlist' art.slug %}?next={% url 'dashboard' %}"
+                     class="btn btn-outline-danger btn-sm">
+                    <i class="fas fa-heart-broken"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-5">
+          <i class="fas fa-heart fa-3x mb-3" style="color: #00f5d4; opacity: 0.5;"></i>
+          <p class="lead">Your wishlist is empty.</p>
+          <a href="{% url 'gallery' %}" class="btn btn-primary">Browse Gallery</a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}

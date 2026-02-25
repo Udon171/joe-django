@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Gallery{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-4">Gallery</h1>
+  <p class="lead mb-4" style="color: #e0e0e0;">
+    Browse Joe Django's collection of limited-edition prints.
+  </p>
+
+  <!-- Category Filters -->
+  <div class="category-pills mb-4">
+    <a href="{% url 'gallery' %}"
+       class="btn btn-outline-light {% if not active_category %}active{% endif %}">
+      All
+    </a>
+    {% for cat in categories %}
+      <a href="?category={{ cat.slug }}"
+         class="btn btn-outline-light {% if active_category == cat.slug %}active{% endif %}">
+        {{ cat.name }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- Prints Grid -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for print in prints %}
+    <div class="col">
+      <div class="card gallery-card h-100">
+        <div class="card-img-wrapper">
+          <a href="{% url 'art_detail' print.slug %}">
+            {% if print.image %}
+              <img src="{{ print.image.url }}" class="card-img-top" alt="{{ print.title }}">
+            {% else %}
+              <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
+                   style="height: 250px;">
+                <i class="fas fa-image fa-3x text-muted"></i>
+              </div>
+            {% endif %}
+          </a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ print.title }}</h5>
+          {% if print.category %}
+            <span class="badge bg-secondary mb-2">{{ print.category.name }}</span>
+          {% endif %}
+          <p class="card-text fs-5" style="color: #00f5d4;">&euro;{{ print.price }}</p>
+          {% if print.limited_edition %}
+            <small class="text-warning">
+              <i class="fas fa-star me-1"></i>{{ print.limited_edition }} remaining
+            </small>
+          {% endif %}
+        </div>
+        <div class="card-footer bg-transparent border-0 pb-3">
+          <a href="{% url 'art_detail' print.slug %}" class="btn btn-primary w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="text-center py-5">
+        <i class="fas fa-palette fa-3x mb-3" style="color: #c71585;"></i>
+        <p class="lead">No prints available in this category yet.</p>
+        <a href="{% url 'gallery' %}" class="btn btn-outline-primary">View All Prints</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

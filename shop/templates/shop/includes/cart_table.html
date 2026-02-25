@@ -1,0 +1,60 @@
+{% for item in cart_items %}
+<tr id="cart-row-{{ item.art.id }}">
+  <td>
+    <div class="d-flex align-items-center">
+      {% if item.art.image %}
+        <img src="{{ item.art.image.url }}" alt="{{ item.art.title }}"
+             width="70" height="70" class="rounded me-3" style="object-fit: cover;">
+      {% endif %}
+      <a href="{% url 'art_detail' item.art.slug %}" class="text-decoration-none" style="color: #00f5d4;">
+        {{ item.art.title }}
+      </a>
+    </div>
+  </td>
+  <td>&euro;{{ item.art.price }}</td>
+  <td>
+    <form hx-post="{% url 'update_cart_item' item.art.id %}"
+          hx-target="#cart-items-body"
+          hx-swap="innerHTML"
+          hx-indicator="#loading-spinner">
+      {% csrf_token %}
+      <input type="number" name="quantity" value="{{ item.quantity }}"
+             min="0" max="99" class="form-control form-control-sm"
+             hx-trigger="change" style="width: 80px;">
+    </form>
+  </td>
+  <td>&euro;{{ item.item_total }}</td>
+  <td>
+    <button hx-post="{% url 'remove_from_cart' item.art.id %}"
+            hx-target="#cart-items-body"
+            hx-swap="innerHTML"
+            hx-confirm="Remove this item?"
+            hx-indicator="#loading-spinner"
+            class="btn btn-sm btn-outline-danger">
+      <i class="fas fa-trash"></i>
+    </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="5" class="text-center py-4">
+    <p class="mb-2">Your cart is empty.</p>
+    <a href="{% url 'gallery' %}" class="btn btn-outline-primary">Browse Prints</a>
+  </td>
+</tr>
+{% endfor %}
+
+<!-- Out-of-band total update -->
+<div id="cart-total" hx-swap-oob="innerHTML">
+  <div class="text-end mt-4">
+    <h4>Total: <span style="color: #00f5d4;">&euro;{{ total }}</span></h4>
+    <a href="{% url 'gallery' %}" class="btn btn-outline-primary me-2">
+      <i class="fas fa-arrow-left me-1"></i>Continue Shopping
+    </a>
+    {% if cart_items %}
+    <button id="checkout-button" class="btn btn-primary btn-lg">
+      <i class="fas fa-lock me-2"></i>Proceed to Checkout
+    </button>
+    {% endif %}
+  </div>
+</div>
