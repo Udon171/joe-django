@@ -4,125 +4,87 @@
 {% block extra_title %} | Contact{% endblock %}
 
 {% block content %}
-<!-- Contact Hero -->
-<section class="contact-hero position-relative overflow-hidden">
-  <div class="contact-hero-bg"
-       style="background-image: url('/media/prints/Molishi_Mysticals_Molishi_on_water_surounded_by_lanterns_floa_0.jpg');"></div>
-  <div class="contact-hero-overlay"></div>
-  <div class="container position-relative" style="z-index: 2;">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center py-5">
-        <h1 class="display-3 fw-bold mb-3 text-white">Get In Touch</h1>
-        <p class="lead" style="color: rgba(255,255,255,0.8);">
-          Commissions, collaborations, or just to say hello
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact Content -->
-<section class="py-5">
+<div class="contact-page">
   <div class="container">
-    <div class="row g-5">
-      <!-- Contact Form -->
-      <div class="col-lg-7">
-        <div class="contact-form-card p-4 p-md-5 rounded-3">
-          <h2 class="mb-4" style="color: var(--accent-teal);">Send a Message</h2>
-          <form method="POST" action="{% url 'contact' %}">
-            {% csrf_token %}
-            <div class="mb-3">
-              <label for="contactName" class="form-label">Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="contactName" name="name"
-                     placeholder="Your name" required>
+    <!-- Page Title -->
+    <div class="contact-page-header">
+      <h1 class="contact-page-title">Contact</h1>
+    </div>
+
+    <div class="contact-layout">
+      <!-- Left: Form -->
+      <div class="contact-form-col">
+        <p class="contact-intro">
+          Email may be quicker and easier &mdash; <a href="mailto:hello@joedjango.art">hello@joedjango.art</a><br>
+          Otherwise get in touch via the form below.
+        </p>
+
+        <form method="POST" action="{% url 'contact' %}" class="contact-form">
+          {% csrf_token %}
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="contactName" class="contact-label">
+                Name
+                <span class="contact-label-sub">First Name (required)</span>
+              </label>
+              <input type="text" class="contact-input" id="contactName" name="name" required>
             </div>
-            <div class="mb-3">
-              <label for="contactEmail" class="form-label">Email <span class="text-danger">*</span></label>
-              <input type="email" class="form-control" id="contactEmail" name="email"
-                     placeholder="your@email.com" required>
+            <div class="contact-field">
+              <label for="contactLastName" class="contact-label">
+                &nbsp;
+                <span class="contact-label-sub">Last Name (required)</span>
+              </label>
+              <input type="text" class="contact-input" id="contactLastName" name="last_name" required>
             </div>
-            <div class="mb-3">
-              <label for="contactSubject" class="form-label">Subject</label>
-              <input type="text" class="form-control" id="contactSubject" name="subject"
-                     placeholder="What's this about?">
-            </div>
-            <div class="mb-4">
-              <label for="contactMessage" class="form-label">Message <span class="text-danger">*</span></label>
-              <textarea class="form-control" id="contactMessage" name="message"
-                        rows="6" placeholder="Tell Joe what you have in mind..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg w-100">
-              <i class="fas fa-paper-plane me-2"></i>Send Message
-            </button>
-          </form>
-        </div>
+          </div>
+
+          <div class="contact-field">
+            <label for="contactEmail" class="contact-label">
+              Email Address
+              <span class="contact-label-sub">(required)</span>
+            </label>
+            <input type="email" class="contact-input" id="contactEmail" name="email" required>
+          </div>
+
+          <div class="contact-field">
+            <label for="contactSubject" class="contact-label">
+              Subject
+              <span class="contact-label-sub">(required)</span>
+            </label>
+            <input type="text" class="contact-input" id="contactSubject" name="subject" required>
+          </div>
+
+          <div class="contact-field">
+            <label for="contactMessage" class="contact-label">
+              Message
+              <span class="contact-label-sub">(required)</span>
+            </label>
+            <textarea class="contact-input contact-textarea" id="contactMessage" name="message" required></textarea>
+          </div>
+
+          <button type="submit" class="contact-submit">Submit</button>
+        </form>
       </div>
 
-      <!-- Contact Info Sidebar -->
-      <div class="col-lg-5">
-        <div class="contact-info-card p-4 rounded-3 mb-4">
-          <h4 class="mb-4" style="color: var(--accent-teal);">Other Ways to Connect</h4>
+      <!-- Right: Studio Info -->
+      <div class="contact-info-col">
+        <h3 class="contact-studio-title">The Studio</h3>
+        <p class="contact-studio-address">
+          Digital Studio<br>
+          Somewhere Creative<br>
+          United Kingdom
+        </p>
+        <p class="contact-studio-phone">
+          <a href="mailto:hello@joedjango.art">hello@joedjango.art</a>
+        </p>
 
-          <div class="d-flex align-items-start mb-4">
-            <div class="contact-icon me-3">
-              <i class="fas fa-paint-brush fa-lg" style="color: var(--accent-rose);"></i>
-            </div>
-            <div>
-              <h6 class="text-white mb-1">Commissions</h6>
-              <p class="text-muted small mb-0">
-                Want custom artwork? Use the
-                <a href="{% url 'commission_create' %}" style="color: var(--accent-teal);">commission form</a>
-                for instant quotes and tracking.
-              </p>
-            </div>
-          </div>
-
-          <div class="d-flex align-items-start mb-4">
-            <div class="contact-icon me-3">
-              <i class="fas fa-envelope fa-lg" style="color: var(--accent-gold);"></i>
-            </div>
-            <div>
-              <h6 class="text-white mb-1">Email</h6>
-              <p class="text-muted small mb-0">
-                hello@joedjango.art
-              </p>
-            </div>
-          </div>
-
-          <div class="d-flex align-items-start mb-4">
-            <div class="contact-icon me-3">
-              <i class="fas fa-clock fa-lg" style="color: var(--accent-teal);"></i>
-            </div>
-            <div>
-              <h6 class="text-white mb-1">Response Time</h6>
-              <p class="text-muted small mb-0">
-                Usually within 24–48 hours.
-                Commissions are responded to in order received.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Social Links Card -->
-        <div class="contact-info-card p-4 rounded-3">
-          <h4 class="mb-4" style="color: var(--accent-teal);">Follow the Art</h4>
-          <div class="d-flex gap-3">
-            <a href="#" class="social-link-btn" aria-label="Instagram">
-              <i class="fab fa-instagram fa-2x"></i>
-            </a>
-            <a href="#" class="social-link-btn" aria-label="Twitter / X">
-              <i class="fab fa-twitter fa-2x"></i>
-            </a>
-            <a href="#" class="social-link-btn" aria-label="DeviantArt">
-              <i class="fab fa-deviantart fa-2x"></i>
-            </a>
-            <a href="#" class="social-link-btn" aria-label="Behance">
-              <i class="fab fa-behance fa-2x"></i>
-            </a>
-          </div>
+        <!-- Map placeholder -->
+        <div class="contact-map-placeholder">
+          <i class="fas fa-map-marker-alt fa-2x"></i>
+          <span>Map coming soon</span>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 {% endblock %}
