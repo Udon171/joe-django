@@ -4,139 +4,149 @@
 {% block extra_title %} | About{% endblock %}
 
 {% block content %}
-<!-- About Hero -->
-<section class="about-hero position-relative overflow-hidden">
-  <div class="about-hero-bg"
-       style="background-image: url('/media/prints/Molishi_Mysticals_Molishi_in_the_great_spirit_land_0.jpg');"></div>
-  <div class="about-hero-overlay"></div>
-  <div class="container position-relative" style="z-index: 2;">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center py-5">
-        <h1 class="display-3 fw-bold mb-3 text-white">About the Artist</h1>
-        <p class="lead" style="color: rgba(255,255,255,0.8);">
-          The mind behind the mysticals
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Artist Story -->
-<section class="py-5">
+<div class="about-page">
   <div class="container">
-    <div class="row g-5 align-items-center">
-      <div class="col-lg-5">
-        <div class="about-image-frame">
-          <img src="/media/prints/Molishi_Mysticals_Molishi_and_the_mysticals_0.jpg"
-               alt="Joe Django artwork"
-               class="img-fluid rounded-3 shadow-lg">
-        </div>
-      </div>
-      <div class="col-lg-7">
-        <h2 class="mb-4" style="color: var(--accent-teal);">Joe Django</h2>
-        <p class="fs-5">
-          Joe Django is a digital artist working at the intersection of cute and dark —
-          blending chibi character design with gothic atmospheres, neon mysticism,
-          and surreal dreamscapes.
-        </p>
-        <p>
-          Every piece in the Molishi Mysticals collection tells a story of spirit worlds,
-          ancient temples, and ethereal gatherings. The characters — small, wide-eyed,
-          luminous — navigate landscapes that feel both familiar and otherworldly.
-        </p>
-        <p>
-          Joe creates limited-edition prints for collectors and offers bespoke commissions
-          for those who want something truly personal. From icons and logos to large-format
-          posters and portraits, every commission is crafted with the same attention to
-          mood, colour, and narrative.
-        </p>
-        <div class="d-flex gap-3 mt-4">
-          <a href="{% url 'gallery' %}" class="btn btn-primary">
-            <i class="fas fa-images me-2"></i>View Gallery
-          </a>
-          <a href="{% url 'commission_create' %}" class="btn btn-outline-primary">
-            <i class="fas fa-paint-brush me-2"></i>Commission Work
-          </a>
-        </div>
-      </div>
+    <!-- Page Title -->
+    <div class="about-page-header">
+      <h1 class="about-page-title">About</h1>
     </div>
-  </div>
-</section>
 
-<!-- Process Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #2d1b3a 0%, #1a1a2e 50%, #16213e 100%);">
-  <div class="container">
-    <h2 class="text-center mb-5" style="color: var(--accent-teal);">The Process</h2>
-    <div class="row g-4">
-      <div class="col-md-3 text-center">
-        <div class="process-step">
-          <div class="process-icon mb-3">
-            <i class="fas fa-lightbulb fa-2x" style="color: var(--accent-gold);"></i>
+    <div class="about-layout">
+      <!-- Left: Artist Image -->
+      <div class="about-image-col">
+        <div class="about-artist-photo">
+          <!-- Placeholder until real photo is available -->
+          <div class="about-photo-placeholder">
+            <i class="fas fa-user fa-4x"></i>
+            <span>Photo coming soon</span>
           </div>
-          <h5 class="text-white">1. Concept</h5>
-          <p class="text-muted small">Every piece begins with a vision — a mood, a character, a world waiting to be drawn.</p>
         </div>
       </div>
-      <div class="col-md-3 text-center">
-        <div class="process-step">
-          <div class="process-icon mb-3">
-            <i class="fas fa-pencil-alt fa-2x" style="color: var(--accent-rose);"></i>
-          </div>
-          <h5 class="text-white">2. Sketch</h5>
-          <p class="text-muted small">Rough compositions take shape, exploring poses, lighting, and atmosphere.</p>
-        </div>
-      </div>
-      <div class="col-md-3 text-center">
-        <div class="process-step">
-          <div class="process-icon mb-3">
-            <i class="fas fa-palette fa-2x" style="color: var(--accent-teal);"></i>
-          </div>
-          <h5 class="text-white">3. Render</h5>
-          <p class="text-muted small">Digital painting brings the scene to life with neon highlights and deep shadows.</p>
-        </div>
-      </div>
-      <div class="col-md-3 text-center">
-        <div class="process-step">
-          <div class="process-icon mb-3">
-            <i class="fas fa-print fa-2x" style="color: #fff;"></i>
-          </div>
-          <h5 class="text-white">4. Print</h5>
-          <p class="text-muted small">High-quality giclée printing on museum-grade paper, numbered and signed.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Stats / Fun Facts -->
-<section class="py-5">
-  <div class="container">
-    <div class="row g-4 text-center">
-      <div class="col-6 col-md-3">
-        <div class="stat-card p-4">
-          <h3 class="fw-bold" style="color: var(--accent-teal);">25+</h3>
-          <p class="text-muted mb-0">Prints Available</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card p-4">
-          <h3 class="fw-bold" style="color: var(--accent-rose);">∞</h3>
-          <p class="text-muted mb-0">Imagination</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card p-4">
-          <h3 class="fw-bold" style="color: var(--accent-gold);">100%</h3>
-          <p class="text-muted mb-0">Original Art</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card p-4">
-          <h3 class="fw-bold" style="color: var(--accent-teal);">1</h3>
-          <p class="text-muted mb-0">Artist, One Vision</p>
+      <!-- Right: Expandable Sections -->
+      <div class="about-content-col">
+        <div class="accordion about-accordion" id="aboutAccordion">
+
+          <!-- About Joe -->
+          <div class="accordion-item about-accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button about-accordion-btn" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#aboutJoe"
+                      aria-expanded="true" aria-controls="aboutJoe">
+                About Joe
+              </button>
+            </h2>
+            <div id="aboutJoe" class="accordion-collapse collapse show"
+                 data-bs-parent="#aboutAccordion">
+              <div class="accordion-body about-accordion-body">
+                <p>
+                  Joe Django is a digital artist working at the intersection of cute 
+                  and dark — blending chibi character design with gothic atmospheres, 
+                  neon mysticism, and surreal dreamscapes.
+                </p>
+                <p>
+                  Every piece in the Molishi Mysticals collection tells a story of 
+                  spirit worlds, ancient temples, and ethereal gatherings. The characters 
+                  — small, wide-eyed, luminous — navigate landscapes that feel both 
+                  familiar and otherworldly.
+                </p>
+                <p>
+                  Working primarily in digital media, Joe draws from influences spanning 
+                  Japanese animation, occult symbolism, and the vivid colour palettes of 
+                  retro arcade aesthetics. Each artwork is a window into a universe where 
+                  the mystical and the mundane collide.
+                </p>
+                <p>
+                  Joe creates limited-edition prints for collectors and offers bespoke 
+                  commissions for those who want something truly personal. From icons 
+                  and logos to large-format posters and portraits, every commission is 
+                  crafted with the same attention to mood, colour, and narrative.
+                </p>
+                <p class="about-signed">
+                  <strong>Joe Django</strong><br>
+                  <span class="about-year">2026</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Process -->
+          <div class="accordion-item about-accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button about-accordion-btn collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#aboutProcess"
+                      aria-expanded="false" aria-controls="aboutProcess">
+                The Process
+              </button>
+            </h2>
+            <div id="aboutProcess" class="accordion-collapse collapse"
+                 data-bs-parent="#aboutAccordion">
+              <div class="accordion-body about-accordion-body">
+                <p>
+                  Every piece begins with a vision — a mood, a character, a world waiting 
+                  to be drawn. Rough compositions take shape through sketching, exploring 
+                  poses, lighting, and atmosphere before anything is committed to final form.
+                </p>
+                <p>
+                  Digital painting brings each scene to life with neon highlights and deep 
+                  shadows. Layers of texture, glow effects, and careful colour grading create 
+                  the signature Molishi Mysticals atmosphere — that feeling of stumbling into 
+                  a dream you don't want to leave.
+                </p>
+                <p>
+                  Final prints are produced using high-quality giclée printing on museum-grade 
+                  paper, each one numbered and signed. The goal is always the same: to create 
+                  something that draws you in and doesn't let go.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CV / Facts -->
+          <div class="accordion-item about-accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button about-accordion-btn collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#aboutCV"
+                      aria-expanded="false" aria-controls="aboutCV">
+                CV
+              </button>
+            </h2>
+            <div id="aboutCV" class="accordion-collapse collapse"
+                 data-bs-parent="#aboutAccordion">
+              <div class="accordion-body about-accordion-body">
+                <div class="cv-section">
+                  <h6 class="cv-heading">Stats</h6>
+                  <ul class="cv-list">
+                    <li>25+ limited-edition prints available</li>
+                    <li>100% original artwork</li>
+                    <li>Giclée prints on museum-grade paper</li>
+                    <li>Bespoke commissions available</li>
+                  </ul>
+                </div>
+                <div class="cv-section">
+                  <h6 class="cv-heading">Medium</h6>
+                  <ul class="cv-list">
+                    <li>Digital painting (Procreate, Photoshop)</li>
+                    <li>Mixed media — digital &amp; traditional</li>
+                    <li>Giclée print production</li>
+                  </ul>
+                </div>
+                <div class="cv-section">
+                  <h6 class="cv-heading">Themes</h6>
+                  <ul class="cv-list">
+                    <li>Dark chibi surrealism</li>
+                    <li>Gothic mysticism &amp; neon spirituality</li>
+                    <li>Spirit worlds &amp; ethereal landscapes</li>
+                    <li>Retro arcade colour palettes</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 {% endblock %}

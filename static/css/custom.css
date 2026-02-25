@@ -157,68 +157,177 @@ body {
 /* ========================================
    ABOUT PAGE
    ======================================== */
-.about-hero {
-    position: relative;
-    min-height: 45vh;
+.about-page {
+    background: #fff;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    min-height: 80vh;
+}
+
+.about-page-header {
+    margin-bottom: 2.5rem;
+}
+
+.about-page-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* Two-column layout: image left, accordion right */
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.about-image-col {
+    position: sticky;
+    top: 5rem;
+}
+
+.about-artist-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.about-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: #f0f0f0;
     display: flex;
-    align-items: center;
-}
-
-.about-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-}
-
-.about-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(15, 15, 26, 0.3) 0%, rgba(15, 15, 26, 0.85) 100%);
-    z-index: 1;
-}
-
-.about-image-frame {
-    position: relative;
-}
-
-.about-image-frame::before {
-    content: '';
-    position: absolute;
-    inset: -8px;
-    border: 2px solid var(--accent-rose);
-    border-radius: 16px;
-    opacity: 0.4;
-}
-
-.process-step {
-    padding: 1.5rem;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.process-step:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent-rose);
-}
-
-.process-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
+    color: #bbb;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
 }
 
-.stat-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
+.about-photo-placeholder i {
+    color: #d0d0d0;
+}
+
+/* Accordion styling — clean, minimal like Tom Lewis */
+.about-accordion {
+    border: none;
+}
+
+.about-accordion-item {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    border-radius: 0 !important;
+}
+
+.about-accordion-item:first-child {
+    border-top: 1px solid #e0e0e0 !important;
+}
+
+.about-accordion-btn {
+    background: transparent !important;
+    border: none;
+    border-radius: 0 !important;
+    padding: 1.25rem 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #1a1a1a !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.about-accordion-btn:focus {
+    box-shadow: none !important;
+}
+
+.about-accordion-btn::after {
+    background-image: none;
+    content: '+';
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #1a1a1a;
+    width: auto;
+    height: auto;
+    transform: none;
+    transition: transform 0.2s ease;
+}
+
+.about-accordion-btn:not(.collapsed)::after {
+    content: '−';
+    transform: none;
+}
+
+.about-accordion-body {
+    padding: 0 0 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: #444;
+    line-height: 1.9;
+}
+
+.about-accordion-body p {
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+.about-accordion-body p:last-child {
+    margin-bottom: 0;
+}
+
+.about-signed {
+    margin-top: 1.5rem;
+    color: #1a1a1a !important;
+}
+
+.about-year {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* CV section within accordion */
+.cv-section {
+    margin-bottom: 1.5rem;
+}
+
+.cv-section:last-child {
+    margin-bottom: 0;
+}
+
+.cv-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999;
+    margin-bottom: 0.75rem;
+}
+
+.cv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cv-list li {
+    padding: 0.3rem 0;
+    font-size: 0.85rem;
+    color: #555;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cv-list li:last-child {
+    border-bottom: none;
 }
 
 /* ========================================
@@ -800,6 +909,16 @@ footer h5 {
 
     .site-brand {
         font-size: 1.4rem;
+    }
+
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-image-col {
+        position: static;
+        max-width: 500px;
     }
 
     .footer-main {
