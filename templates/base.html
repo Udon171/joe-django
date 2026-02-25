@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center site-nav-links">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'gallery' %}">Work</a>
+              <a class="nav-link" href="{% url 'work' %}">Work</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'gallery' %}">Store</a>
@@ -52,15 +52,15 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'contact' %}">Contact</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'cart_detail' %}">
-                Cart
-                {% if cart_item_count %}
-                  <span class="badge bg-danger rounded-pill ms-1">{{ cart_item_count }}</span>
-                {% endif %}
-              </a>
-            </li>
             {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cart_detail' %}">
+                  Cart
+                  {% if cart_item_count %}
+                    <span class="badge bg-danger rounded-pill ms-1">{{ cart_item_count }}</span>
+                  {% endif %}
+                </a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
               </li>
@@ -70,9 +70,6 @@
             {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
               </li>
             {% endif %}
           </ul>
@@ -108,7 +105,7 @@
             <p class="footer-tagline">Dark Chibi Surrealism</p>
           </div>
           <div class="footer-links">
-            <a href="{% url 'gallery' %}">Work</a>
+            <a href="{% url 'work' %}">Work</a>
             <a href="{% url 'gallery' %}">Store</a>
             <a href="{% url 'about' %}">About</a>
             <a href="{% url 'contact' %}">Contact</a>

@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from django.contrib import messages
+from gallery.models import ArtPrint
 
 
 def index(request):
     """Homepage with banner-stack layout."""
     return render(request, 'home/index.html')
+
+
+def work(request):
+    """Work page — masonry grid of all artwork."""
+    prints = ArtPrint.objects.filter(is_available=True).order_by('?')
+    return render(request, 'home/work.html', {'prints': prints})
 
 
 def about(request):

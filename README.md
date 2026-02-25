@@ -958,6 +958,50 @@ Replaced Bootstrap card grid with a custom CSS Grid store layout:
 
 ---
 
+### Entry 16 — 25 February 2026
+
+**Phase:** Work Page & Navbar Refinement
+**Commit:** `feat(work): add masonry Work page, streamline navbar to core links with auth-gated items`
+
+#### Context
+
+The Tom Lewis "Work" page shows all artwork in a dense, organic masonry grid — images packed tightly at varying sizes with no titles or prices. This needed to be a separate page from the Store (which shows a uniform grid with prices). The navbar also needed trimming: only the core links (Work, Store, About, Contact, Login) should be visible to anonymous users, with Cart, Dashboard and Logout appearing after login.
+
+#### What Was Built
+
+**1. Work Page** (`/work/`)
+
+- New masonry-grid gallery showing all artwork as images only (no titles, prices, or buttons)
+- CSS columns-based masonry layout: 6 columns on desktop → 4 on tablet → 3 on small tablet → 2 on mobile
+- White background to let the art pop (contrast with dark-themed rest of site)
+- Header with "Work" title in Playfair Display, subtitle with date range and linked CTAs to Store and Contact
+- Images displayed at natural aspect ratios with subtle hover opacity fade
+- Randomised order (`order_by('?')`) so layout feels fresh each visit
+
+**2. Navbar Streamlined**
+
+- Trimmed to 5 core links for anonymous users: Work, Store, About, Contact, Login
+- Cart, Dashboard, Logout only appear when authenticated (hidden until login)
+- Register link removed from navbar (accessible via Login page)
+- Brand "JOE DJANGO" styled uppercase in rose with wider letter-spacing (0.15em)
+- Links styled smaller (0.8rem) with softer opacity (0.55) for a quieter feel
+
+**3. Homepage & Footer Updated**
+
+- Homepage "WORK" banner now links to `/work/` instead of `/gallery/`
+- Footer "Work" link also updated to `/work/`
+
+#### Files Changed
+
+- `home/templates/home/work.html` — **new** masonry grid Work page template
+- `home/views.py` — added `work()` view (queries all available ArtPrints, random order)
+- `home/urls.py` — added `work/` URL path
+- `templates/base.html` — navbar trimmed (auth-gated Cart/Dashboard/Logout, removed Register), footer Work link updated
+- `home/templates/home/index.html` — WORK banner links to `{% url 'work' %}`
+- `static/css/custom.css` — masonry grid styles (`.work-page`, `.masonry-grid`, `.masonry-item`), brand uppercase + rose, responsive masonry breakpoints
+
+---
+
 *Further entries will be added as development continues.*
 
 ---
