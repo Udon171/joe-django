@@ -835,6 +835,72 @@ The 66 skipped files were variant versions of the same artwork (e.g., `_0.jpg`, 
 
 ---
 
+### Entry 14 — 25 February 2026
+
+**Phase:** Homepage Redesign & New Pages
+**Commit:** `feat(home): redesign homepage with artist portfolio banner stack and add About + Contact pages`
+
+#### Context
+
+With the gallery populated (Entry 13), the site needed a homepage that looks and feels like an artist's portfolio — not a generic e-commerce landing page. Inspired by artist portfolio sites (stacked full-width image banners with bold text overlays linking to each section), the homepage was rebuilt from scratch.
+
+#### What Was Built
+
+**1. Homepage Banner Stack**
+
+Replaced the hero + feature cards + CTA layout with four full-width stacked banner sections, each using a Molishi Mysticals artwork as the background:
+
+| Banner | Links To | Background Image |
+|--------|----------|------------------|
+| W O R K | Gallery (artwork showcase) | Castaway in a dark eerie ocean |
+| S T O R E | Gallery (print shop) | Butterfly spirits on the water |
+| A B O U T | About page | Shaman in a circle of stone |
+| C O N T A C T | Contact page | Vibrant birthday celebration |
+
+Each banner features: background image with dark overlay, bold spaced-letter white text, hover effects (image scale 1.05, overlay lightens, letter-spacing expands, rose glow on text shadow). Fully responsive — banners shrink on mobile.
+
+**2. About Page** (`/about/`)
+
+- Hero section with artwork background and gradient overlay
+- Artist bio with featured artwork image alongside text
+- "The Process" section — 4-step visual breakdown (Concept → Sketch → Render → Print)
+- Stats/facts row (25+ prints, infinite imagination, 100% original, 1 artist)
+
+**3. Contact Page** (`/contact/`)
+
+- Hero section with lanterns artwork background
+- Contact form (name, email, subject, message) with Django form handling and messages
+- Sidebar with commission link, email, response time info
+- Social media icon buttons with hover effects
+
+**4. Navigation Overhaul**
+
+- Nav links updated: Work, Store, About, Contact (right: Cart, Dashboard/Login)
+- Brand text restyled: uppercase with letter-spacing, rose colour (matching Tom Lewis portfolio style)
+- Removed Font Awesome icons from nav links for cleaner typography
+- Footer updated with new page links
+
+**5. CSS Overhaul**
+
+- Body background changed from flat colour to 3-part gradient (`#1a1a2e → #2d1b3a → #16213e`), fixed attachment
+- Navbar glass effect: semi-transparent with backdrop blur and subtle rose border
+- New banner stack styles with hover animations
+- About/Contact hero sections with gradient overlays
+- Contact form card, social link buttons, process step cards — all with glass-morphism effect
+- Responsive breakpoints for banner height and letter-spacing
+
+#### Files Changed
+
+- `home/templates/home/index.html` — complete rewrite with banner stack layout
+- `home/templates/home/about.html` — **new** About page template
+- `home/templates/home/contact.html` — **new** Contact page template
+- `home/views.py` — added `about()` and `contact()` views (contact handles POST)
+- `home/urls.py` — added `about/` and `contact/` URL paths
+- `templates/base.html` — navbar brand restyled, nav links updated (Work/Store/About/Contact), footer links updated
+- `static/css/custom.css` — major overhaul: 3-part gradient body, glass navbar, banner stack, about/contact page styles, responsive adjustments
+
+---
+
 *Further entries will be added as development continues.*
 
 ---

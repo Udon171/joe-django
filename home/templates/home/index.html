@@ -3,97 +3,60 @@
 
 {% block extra_title %} | Home{% endblock %}
 
+{% block extra_css %}
+<style>
+  /* Homepage-only: remove default padding/margin from main */
+  main.flex-grow-1 { padding: 0 !important; margin: 0 !important; }
+</style>
+{% endblock %}
+
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-7">
-        <h1 class="display-3 fw-bold mb-3">Dark Whimsy &bull; Chibi Surrealism</h1>
-        <p class="lead mb-4">
-          Limited edition prints &amp; bespoke commissions by Joe Django.
-          Where cute meets dark, and dreams meet ink.
-        </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a href="{% url 'gallery' %}" class="btn btn-primary btn-lg px-4">
-            <i class="fas fa-images me-2"></i>Browse Prints
-          </a>
-          <a href="{% url 'commission_create' %}" class="btn btn-outline-primary btn-lg px-4">
-            <i class="fas fa-paint-brush me-2"></i>Commission Custom
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-5 mt-4 mt-lg-0 text-center">
-        <div class="p-4">
-          <i class="fas fa-palette" style="font-size: 12rem; opacity: 0.15; color: #c71585;"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Banner Stack — inspired by artist portfolio layouts -->
+<div class="banner-stack">
 
-<!-- Features Section -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5" style="color: #00f5d4;">What We Offer</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card h-100 text-center p-4">
-          <div class="card-body">
-            <i class="fas fa-print fa-3x mb-3" style="color: #c71585;"></i>
-            <h5 class="card-title">Limited Edition Prints</h5>
-            <p class="card-text">
-              Browse 96 unique pieces from Joe Django's collection.
-              Each print captures the essence of dark chibi surrealism.
-            </p>
-            <a href="{% url 'gallery' %}" class="btn btn-outline-primary mt-2">Shop Now</a>
-          </div>
-        </div>
+  <!-- WORK Banner -->
+  <a href="{% url 'gallery' %}" class="banner-link" aria-label="View artwork gallery">
+    <section class="banner-section"
+             style="background-image: url('/media/prints/Molishi_Mysticals_A_Molishi_castaway_lost_in_a_dark_eerie_ocea_1.jpg');">
+      <div class="banner-overlay"></div>
+      <div class="banner-text">
+        <h2>W O R K</h2>
       </div>
-      <div class="col-md-4">
-        <div class="card h-100 text-center p-4">
-          <div class="card-body">
-            <i class="fas fa-magic fa-3x mb-3" style="color: #d4a017;"></i>
-            <h5 class="card-title">Custom Commissions</h5>
-            <p class="card-text">
-              Request a bespoke piece in Joe's signature style.
-              Get a live price estimate and track progress in your dashboard.
-            </p>
-            <a href="{% url 'commission_create' %}" class="btn btn-outline-primary mt-2">Request Custom</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 text-center p-4">
-          <div class="card-body">
-            <i class="fas fa-heart fa-3x mb-3" style="color: #00f5d4;"></i>
-            <h5 class="card-title">Your Collection</h5>
-            <p class="card-text">
-              Save favourites to your wishlist, track orders,
-              and download purchased prints &mdash; all from your dashboard.
-            </p>
-            {% if user.is_authenticated %}
-              <a href="{% url 'dashboard' %}" class="btn btn-outline-primary mt-2">My Dashboard</a>
-            {% else %}
-              <a href="{% url 'account_signup' %}" class="btn btn-outline-primary mt-2">Join Now</a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
+  </a>
 
-<!-- CTA Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #2d1b3a, #1a1a2e);">
-  <div class="container text-center">
-    <h2 class="mb-3">Ready to own something unique?</h2>
-    <p class="lead mb-4" style="color: #e0e0e0;">
-      Every piece tells a story. Find yours in the gallery or commission something truly personal.
-    </p>
-    <a href="{% url 'gallery' %}" class="btn btn-primary btn-lg me-3">
-      <i class="fas fa-shopping-bag me-2"></i>Shop Prints
-    </a>
-  </div>
-</section>
+  <!-- STORE Banner -->
+  <a href="{% url 'gallery' %}" class="banner-link" aria-label="Browse the print store">
+    <section class="banner-section"
+             style="background-image: url('/media/prints/Molishi_Mysticals_Molishi_and_the_butterfly_spirits_on_the_wa_0.jpg');">
+      <div class="banner-overlay"></div>
+      <div class="banner-text">
+        <h2>S T O R E</h2>
+      </div>
+    </section>
+  </a>
+
+  <!-- ABOUT Banner -->
+  <a href="{% url 'about' %}" class="banner-link" aria-label="Learn about the artist">
+    <section class="banner-section"
+             style="background-image: url('/media/prints/Molishi_Mysticals_A_Molishi_shaman_stands_in_a_circle_of_stone_0.jpg');">
+      <div class="banner-overlay"></div>
+      <div class="banner-text">
+        <h2>A B O U T</h2>
+      </div>
+    </section>
+  </a>
+
+  <!-- CONTACT Banner -->
+  <a href="{% url 'contact' %}" class="banner-link" aria-label="Get in touch">
+    <section class="banner-section"
+             style="background-image: url('/media/prints/Molishi_Mysticals_A_vibrant_Molishi_birthday_celebration_with_0.jpg');">
+      <div class="banner-overlay"></div>
+      <div class="banner-text">
+        <h2>C O N T A C T</h2>
+      </div>
+    </section>
+  </a>
+
+</div>
 {% endblock %}

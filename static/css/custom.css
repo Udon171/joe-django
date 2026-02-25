@@ -4,46 +4,257 @@
 :root {
     --dark-base: #1a1a2e;
     --dark-mid: #16213e;
+    --dark-accent: #2d1b3a;
     --accent-rose: #c71585;
     --accent-teal: #00f5d4;
     --accent-gold: #d4a017;
     --text-light: #e0e0e0;
     --bg-card: #2d2d44;
+    --gradient-3: linear-gradient(135deg, #1a1a2e 0%, #2d1b3a 50%, #16213e 100%);
 }
 
 body {
-    background-color: #0f0f1a;
+    background: var(--gradient-3);
+    background-attachment: fixed;
     color: var(--text-light);
     font-family: 'Segoe UI', Roboto, 'Open Sans', sans-serif;
 }
 
-/* Navbar */
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+    background: rgba(15, 15, 26, 0.95) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(199, 21, 133, 0.15);
+}
+
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--accent-rose) !important;
+    letter-spacing: 0.25em;
+}
+
+.navbar .nav-link {
+    color: var(--text-light) !important;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
     color: var(--accent-teal) !important;
 }
 
-/* Hero Section */
-.hero-section {
-    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3a 50%, #16213e 100%);
-    min-height: 80vh;
+/* ========================================
+   HOMEPAGE BANNER STACK
+   ======================================== */
+.banner-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.banner-link {
+    display: block;
+    text-decoration: none;
+}
+
+.banner-section {
+    position: relative;
+    height: 35vh;
+    min-height: 220px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.banner-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+    z-index: 0;
+}
+
+.banner-section:hover::before {
+    transform: scale(1.05);
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 15, 26, 0.45);
+    transition: background 0.4s ease;
+    z-index: 1;
+}
+
+.banner-section:hover .banner-overlay {
+    background: rgba(15, 15, 26, 0.25);
+}
+
+.banner-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.banner-text h2 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6);
+    margin: 0;
+    transition: letter-spacing 0.4s ease, text-shadow 0.4s ease;
+}
+
+.banner-section:hover .banner-text h2 {
+    letter-spacing: 0.6em;
+    text-shadow: 0 2px 40px rgba(199, 21, 133, 0.4);
+}
+
+/* ========================================
+   ABOUT PAGE
+   ======================================== */
+.about-hero {
+    position: relative;
+    min-height: 45vh;
     display: flex;
     align-items: center;
 }
 
-.hero-section h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, var(--accent-teal), var(--accent-rose));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.about-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
 }
 
-.hero-section .lead {
-    font-size: 1.4rem;
+.about-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 15, 26, 0.3) 0%, rgba(15, 15, 26, 0.85) 100%);
+    z-index: 1;
+}
+
+.about-image-frame {
+    position: relative;
+}
+
+.about-image-frame::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 2px solid var(--accent-rose);
+    border-radius: 16px;
+    opacity: 0.4;
+}
+
+.process-step {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-rose);
+}
+
+.process-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+}
+
+/* ========================================
+   CONTACT PAGE
+   ======================================== */
+.contact-hero {
+    position: relative;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+}
+
+.contact-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.contact-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 15, 26, 0.3) 0%, rgba(15, 15, 26, 0.85) 100%);
+    z-index: 1;
+}
+
+.contact-form-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contact-info-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.social-link-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-light);
-    opacity: 0.9;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link-btn:hover {
+    background: var(--accent-rose);
+    border-color: var(--accent-rose);
+    color: #fff;
+    transform: translateY(-3px);
 }
 
 /* Cards */
@@ -229,11 +440,28 @@ footer h5 {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2rem;
+    .banner-section {
+        height: 25vh;
+        min-height: 160px;
     }
 
-    .hero-section .lead {
-        font-size: 1.1rem;
+    .banner-text h2 {
+        letter-spacing: 0.2em;
+    }
+
+    .banner-section:hover .banner-text h2 {
+        letter-spacing: 0.3em;
+    }
+
+    .about-hero,
+    .contact-hero {
+        min-height: 30vh;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-section {
+        height: 22vh;
+        min-height: 140px;
     }
 }
