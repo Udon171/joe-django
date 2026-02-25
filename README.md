@@ -901,6 +901,63 @@ Each banner features: background image with dark overlay, bold spaced-letter whi
 
 ---
 
+### Entry 15 — 25 February 2026
+
+**Phase:** Store Page, Navbar & Footer Visual Refinement
+**Commit:** `feat(ui): redesign store grid, navbar typography and footer layout for clean portfolio aesthetic`
+
+#### Context
+
+With the homepage banner stack complete, the store/gallery page still looked like a generic Bootstrap card grid. Inspired by professional artist portfolio shops (clean image grids, minimal chrome, elegant typography), the store page, navbar, and footer were all redesigned for a cohesive, refined look.
+
+#### What Was Built
+
+**1. Store Page Redesign**
+
+Replaced Bootstrap card grid with a custom CSS Grid store layout:
+
+- Clean 3-column grid with 1:1 aspect ratio images
+- No card borders, shadows, or buttons — images speak for themselves
+- Title and price displayed beneath each image in clean Inter font
+- Limited edition count shown subtly in gold
+- Category filter tabs at top (underline-style, not pill buttons)
+- Page header with Playfair Display serif title and uppercase subtitle
+- Hover effect: subtle image scale (1.04) with slight opacity fade
+- Fully responsive: 2 columns on tablet, 1 on mobile
+
+**2. Navbar Redesign**
+
+- Brand name "Joe Django" set in Playfair Display serif font at 2rem, white, with subtle letter-spacing
+- Hover on brand transitions to rose colour
+- All nav links moved to the right (ms-auto) in a single unified list
+- Links styled in Inter font, 0.85rem, uppercase with wide letter-spacing
+- Hover underline animation (scaleX transform) on each link
+- Removed Font Awesome icons from Cart and Dashboard links for cleaner look
+- Removed pink border-bottom from navbar
+
+**3. Footer Redesign**
+
+- Horizontal flexbox layout: brand left, links center, social icons right
+- Brand in Playfair Display serif, tagline in Inter uppercase
+- Links displayed horizontally with generous spacing (2.5rem gap)
+- Social icons displayed inline with subtle hover to white
+- Bottom bar with copyright in small, light, spaced text
+- Responsive: stacks vertically and centers on mobile
+
+**4. Typography System**
+
+- Added Google Fonts: Playfair Display (brand, headings) + Inter (body, UI elements)
+- Body font changed from Segoe UI to Inter with font-weight 300 for lighter feel
+- Consistent letter-spacing and text-transform across all UI elements
+
+#### Files Changed
+
+- `templates/base.html` — Google Fonts added, navbar restructured (single nav list, Playfair brand, clean links), footer rebuilt (flex layout, brand/links/social horizontal)
+- `gallery/templates/gallery/gallery_list.html` — complete rewrite: CSS Grid store layout, category tabs, clean image items with title/price below
+- `static/css/custom.css` — new `.site-navbar`, `.site-brand`, `.site-nav-links` styles; new `.store-page`, `.store-grid`, `.store-item`, `.store-tabs` styles; new `.site-footer`, `.footer-main`, `.footer-links`, `.footer-social` styles; responsive breakpoints updated for store grid and footer
+
+---
+
 *Further entries will be added as development continues.*
 
 ---

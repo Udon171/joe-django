@@ -1,72 +1,62 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} | Gallery{% endblock %}
+{% block extra_title %} | Store{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-  <h1 class="mb-4">Gallery</h1>
-  <p class="lead mb-4" style="color: #e0e0e0;">
-    Browse Joe Django's collection of limited-edition prints.
-  </p>
+<div class="store-page">
+  <div class="container">
+    <!-- Store Header -->
+    <div class="store-header text-center">
+      <h1 class="store-title">Store</h1>
+      <p class="store-subtitle">Limited-edition prints &amp; originals</p>
+    </div>
 
-  <!-- Category Filters -->
-  <div class="category-pills mb-4">
-    <a href="{% url 'gallery' %}"
-       class="btn btn-outline-light {% if not active_category %}active{% endif %}">
-      All
-    </a>
-    {% for cat in categories %}
-      <a href="?category={{ cat.slug }}"
-         class="btn btn-outline-light {% if active_category == cat.slug %}active{% endif %}">
-        {{ cat.name }}
+    <!-- Category Tabs -->
+    <div class="store-tabs">
+      <a href="{% url 'gallery' %}"
+         class="store-tab {% if not active_category %}active{% endif %}">
+        All
       </a>
-    {% endfor %}
-  </div>
+      {% for cat in categories %}
+        <a href="?category={{ cat.slug }}"
+           class="store-tab {% if active_category == cat.slug %}active{% endif %}">
+          {{ cat.name }}
+        </a>
+      {% endfor %}
+    </div>
 
-  <!-- Prints Grid -->
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    {% for print in prints %}
-    <div class="col">
-      <div class="card gallery-card h-100">
-        <div class="card-img-wrapper">
-          <a href="{% url 'art_detail' print.slug %}">
+    <!-- Prints Grid -->
+    <div class="store-grid">
+      {% for print in prints %}
+      <div class="store-item">
+        <a href="{% url 'art_detail' print.slug %}" class="store-item-link">
+          <div class="store-item-image">
             {% if print.image %}
-              <img src="{{ print.image.url }}" class="card-img-top" alt="{{ print.title }}">
+              <img src="{{ print.image.url }}" alt="{{ print.title }}" loading="lazy">
             {% else %}
-              <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center"
-                   style="height: 250px;">
-                <i class="fas fa-image fa-3x text-muted"></i>
+              <div class="store-item-placeholder">
+                <i class="fas fa-image fa-2x"></i>
               </div>
             {% endif %}
-          </a>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ print.title }}</h5>
-          {% if print.category %}
-            <span class="badge bg-secondary mb-2">{{ print.category.name }}</span>
-          {% endif %}
-          <p class="card-text fs-5" style="color: #00f5d4;">&euro;{{ print.price }}</p>
-          {% if print.limited_edition %}
-            <small class="text-warning">
-              <i class="fas fa-star me-1"></i>{{ print.limited_edition }} remaining
-            </small>
-          {% endif %}
-        </div>
-        <div class="card-footer bg-transparent border-0 pb-3">
-          <a href="{% url 'art_detail' print.slug %}" class="btn btn-primary w-100">View Details</a>
-        </div>
+          </div>
+          <div class="store-item-info">
+            <h3 class="store-item-title">{{ print.title }}</h3>
+            <p class="store-item-price">&euro;{{ print.price }}</p>
+            {% if print.limited_edition %}
+              <span class="store-item-edition">{{ print.limited_edition }} remaining</span>
+            {% endif %}
+          </div>
+        </a>
       </div>
-    </div>
-    {% empty %}
-    <div class="col-12">
-      <div class="text-center py-5">
-        <i class="fas fa-palette fa-3x mb-3" style="color: #c71585;"></i>
-        <p class="lead">No prints available in this category yet.</p>
-        <a href="{% url 'gallery' %}" class="btn btn-outline-primary">View All Prints</a>
+      {% empty %}
+      <div class="store-empty">
+        <i class="fas fa-palette fa-3x mb-3"></i>
+        <p>No prints available in this category yet.</p>
+        <a href="{% url 'gallery' %}" class="btn btn-outline-light">View All Prints</a>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock %}
